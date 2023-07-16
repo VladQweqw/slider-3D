@@ -69,7 +69,6 @@ export function Slider() {
             <Images slideTo={slideTo} />
           </div>
 
-      </div>
           <div className="slider-controls">
             <span onClick={() => {
               slideTo(currentSlide - 1)
@@ -83,6 +82,7 @@ export function Slider() {
               <PiCaretRightBold size={18} />
             </span>
           </div>
+      </div>
 
     </div>
   )
