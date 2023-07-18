@@ -2,7 +2,7 @@
 import { PiCaretLeftBold, PiCaretRightBold } from "react-icons/pi"
 import { topSales } from '../constant/topSales'
 import Image from 'next/image'
-import { useState } from "react"
+import {useEffect, useState, useCallback } from "react"
 
 interface ITopSales {
   imgSrc: string
@@ -11,24 +11,28 @@ interface ITopSales {
 
 export function Slider() {
   const [currentSlide, setCurrentSlide] = useState(Math.floor((topSales.length) / 2))
-    
-  let timeoutId: number | any = 0;
-  document.addEventListener('keydown', (e) => {  
 
-    if(e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-      clearTimeout(timeoutId)  
+  const changeChild = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") {
+       slideTo(currentSlide - 1)
+      } else if (e.key === "ArrowRight") {
+        slideTo(currentSlide + 1)
+      }
+      
+    },
+    [currentSlide]
+  );
 
-      timeoutId = setTimeout(() => {
-        if(e.key === 'ArrowLeft') {
-          slideTo(currentSlide - 1);
-        }else {
-          slideTo(currentSlide + 1);
-        }
-        
-      }, 600);
-    }
+  useEffect(() => {
+    document.addEventListener("keydown", changeChild);
 
+    return function cleanup() {
+      document.removeEventListener("keydown", changeChild);
+    };
   })
+  
+
 
   function slideTo(index: number) {
 
@@ -56,6 +60,20 @@ export function Slider() {
 
   return (
     <div
+      onKeyUp={(e) => {
+        console.log('awd');
+        
+        if(e.key === 'ArrowLeft') {
+          console.log('a');
+          
+          slideTo(currentSlide - 1);
+        }else if(e.key === 'ArrowRight') {
+          slideTo(currentSlide + 1);
+          console.log('b');
+          
+        }
+        
+      }}
       className="main-container relative bg-secondary
     flex flex-col gap-4 justify-between
     tablet:py-8 
