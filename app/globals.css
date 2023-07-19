@@ -35,18 +35,16 @@
   justify-content: center;
   align-items: center;
   width: 100vw;
+  padding: .5rem;
   
 }
 .slideshow {
-  display: grid;
-  position: relative;
-  grid-template-rows: calc(100% - 40px) 40px;
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
-  /* overflow: hidden; */
-  /* overflow-x: auto; */
-  /* scroll-snap-type: x mandatory; */
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  scrollbar-width: none;  /* Firefox */
+  position: relative;
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
 }
 
 .slider-controls {
@@ -65,7 +63,6 @@
 }
 
 .main-container {
-  height: 325px;
   padding: 1rem 0;
 }
 

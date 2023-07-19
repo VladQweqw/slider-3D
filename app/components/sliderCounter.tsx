@@ -1,6 +1,6 @@
 import { topSales } from "../constant/topSales"
 import { Container } from "./Container"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 interface ISliderCounter {
   slidesLength: number,
@@ -17,9 +17,11 @@ export function SliderCounter(data: ISliderCounter) {
   const [currentIndex, setCurrentIndex] = useState(Math.floor((data.slidesLength / 2)))
   let percent = (100 * (currentIndex + 1)) / data.slidesLength;
   
-  window.addEventListener('storage', () => {
-    let index = JSON.parse(localStorage.getItem('currentIndex')!) ?? Math.floor((data.slidesLength / 2));
-    setCurrentIndex(index)
+  useEffect(() => {
+    window.addEventListener('storage', () => {
+      let index = JSON.parse(localStorage.getItem('currentIndex')!) ?? Math.floor((data.slidesLength / 2));
+      setCurrentIndex(index)
+    })
   })
   
 
