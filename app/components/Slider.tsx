@@ -60,21 +60,15 @@ export function Slider() {
 
   return (
     <div
-      onKeyUp={(e) => {
-        console.log('awd');
-        
-        if(e.key === 'ArrowLeft') {
-          console.log('a');
-          
+      onKeyUp={(e) => {        
+        if(e.key === 'ArrowLeft') {          
           slideTo(currentSlide - 1);
         }else if(e.key === 'ArrowRight') {
-          slideTo(currentSlide + 1);
-          console.log('b');
-          
+          slideTo(currentSlide + 1);          
         }
         
       }}
-      className="main-container relative bg-secondary
+      className="py-4 relative bg-secondary
     flex flex-col gap-4 justify-between
     tablet:py-8 
     laptop:py-16 overflow-hidden"
@@ -82,22 +76,22 @@ export function Slider() {
 
       <h1 className="font-primary font-bold text-md">Top Sales</h1>
 
-      <div className="slideshow" >
-          <div className="slider-wrapper">
+      <div className="flex flex-col gap-4 relative" >
+          <div className="relative flex flex-none justify-center items-center w-screen p-2">
             <Images slideTo={slideTo} />
           </div>
 
-          <div className="slider-controls">
+          <div className="text-center flex justify-center w-full items-center gap-8 slider-controls">
             <span onClick={() => {
               slideTo(currentSlide - 1)
-            }} className="left caret">
-              <PiCaretLeftBold size={18} />
+            }} className="left caret cursor-pointer">
+              <PiCaretLeftBold size={24} />
             </span>
 
             <span onClick={() => {
               slideTo(currentSlide + 1)
-            }} className="right caret">
-              <PiCaretRightBold size={18} />
+            }} className="right caret cursor-pointer">
+              <PiCaretRightBold size={24} />
             </span>
           </div>
       </div>
@@ -116,7 +110,8 @@ function Images(data: {
        {topSales?.map((image: ITopSales, index: number) => (
             <div onClick={() => {
               data.slideTo(index);
-            }} key={index} className={`image-wrapper`}>
+            }} key={index} className={`
+            image-wrapper flex-none grid`}>
               <Image 
               placeholder="blur"
               blurDataURL={image.imgSrc}
@@ -124,7 +119,7 @@ function Images(data: {
               height={'330'}
               src={image.imgSrc} 
               alt='image' 
-              className={`slider-image ${index === (Math.floor(topSales.length / 2)) ? 'slide-image-active' : ''}`}
+              className={`slider-image w-48 object-cover cursor-pointer ${index === (Math.floor(topSales.length / 2)) ? 'slide-image-active' : ''}`}
               key={image.imgSrc} />
             </div>
           ))}
